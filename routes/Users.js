@@ -3,20 +3,17 @@ const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middlewares/AuthMiddleware");
-
 const { sign } = require("jsonwebtoken");
-
-router.get("/", async (req, res) => {
-  const listOfPosts = await Users.findAll();
-  res.json(listOfPosts);
-});
 
 router.post("/", async (req, res) => {
   const { user_name, user_email, user_id, user_pw, user_ch_pw } = req.body;
   bcrypt.hash(user_pw, 10).then((hash) => {
     Users.create({
+      user_name: user_name,
+      user_email: user_email,
       user_id: user_id,
       user_pw: hash,
+      user_ch_pw: hash,
     });
     res.json("SUCCESS");
   });
@@ -42,6 +39,29 @@ router.post("/login", async (req, res) => {
 
 router.get("/auth", validateToken, (req, res) => {
   res.json(req.user);
+});
+
+router.get("/basicinfo/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const basicInfo = await Users.findByPk(id, {
+    attributes: { exclude: ["password"] },
+  });
+  res.json(basicInfo);
+});
+
+router.put("/changepassword", async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const user = await Users.findOne({ where: { user_id: req.user.user_id } });
+
+  bcrypt.compare(oldPassword, newPassword).then(async (match) => {
+    if (!match) res.json({ error: "Wrong Password Entered!" });
+
+    bcrypt.hash(newPassword, 10).then((hash) => {
+      Users.update({ user_pw: hash }, { where: { uesr_id: req.user.user_id } });
+      res.json("SUCCESS");
+    });
+  });
 });
 
 module.exports = router;
