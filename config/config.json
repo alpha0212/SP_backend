@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "wnsgml6628",
-    "database": "skyplanner",
-    "host": "localhost",
+    "username": "admin",
+    "password": "awsWNS!gml6628",
+    "database": "sptdatabase",
+    "host": "sptdatabase.cra01zi9ewcg.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
