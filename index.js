@@ -13,8 +13,6 @@ app.use("/todaytimes", timeRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
 
-app.use(express.static(path.join(__dirname, "build")));
-
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
