@@ -18,14 +18,6 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
-app.get("/*", (req, res) => {
-  res.set({
-    "Cache-Control": "no-cache, no-store, must-revalidate",
-    Pragma: "no-cache",
-    Date: Date.now(),
-  });
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 db.sequelize.sync().then(() => {
   app.listen(8000, () => {

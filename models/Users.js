@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    user_ch_pw: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   });
 
   return Users;
