@@ -25,14 +25,14 @@ router.get("/byuserId/:id", async (req, res) => {
 
 router.put("/TodayPost", validateToken, async (req, res) => {
   const { newTime, id } = req.body;
-  await Posts.update({ TodayPost: newTime }, { where: { id: id } });
+  await TodayTime.update({ TodayPost: newTime }, { where: { id: id } });
   res.json(newTime);
 });
 
 router.post("/", validateToken, async (req, res) => {
   const time = req.body;
-  post.user_name = req.user_name;
-  post.UserId = req.user.id;
+  time.user_name = req.user.user_name;
+  time.UserId = req.user.id;
   await TodayTime.create(time);
   res.json(time);
 });
