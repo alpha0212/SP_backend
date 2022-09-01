@@ -4,37 +4,42 @@ const { TodayTime } = require("../models");
 
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
-router.get("/", async (req, res) => {
-  const listOfToday = await TodayTime.findAll();
-  res.json(listOfToday);
+router.get("/", validateToken, async (req, res) => {
+  const listOfPosts = await TodayTime.findAll();
+  res.json({ listOfPosts: listOfPosts });
 });
 
 router.get("/byId/:id", async (req, res) => {
   const id = req.params.id;
-  const time = await TodayTime.FindByPk(id);
-  res.json(time);
+  const post = await TodayTime.findByPk(id);
+  res.json(post);
 });
 
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
-  const listOfToday = await TodayTime.findAll({
-    where: { Userid: id },
+  const listOfPosts = await TodayTime.findAll({
+    where: { UserId: id },
   });
-  res.json(listOfToday);
-});
-
-router.put("/TodayPost", validateToken, async (req, res) => {
-  const { newTime, id } = req.body;
-  await TodayTime.update({ TodayPost: newTime }, { where: { id: id } });
-  res.json(newTime);
+  res.json(listOfPosts);
 });
 
 router.post("/", validateToken, async (req, res) => {
-  const time = req.body;
-  time.user_name = req.user.user_name;
-  time.UserId = req.user.id;
-  await TodayTime.create(time);
-  res.json(time);
+  const post = req.body;
+  post.user_name = req.user.user_name;
+  post.UserId = req.user.id;
+  await TodayTime.create(post);
+  res.json(post);
+});
+
+router.delete("/:postId", validateToken, async (req, res) => {
+  const postId = req.params.postId;
+  await TodayTime.destroy({
+    where: {
+      id: postId,
+    },
+  });
+
+  res.json("DELETED SUCCESSFULLY");
 });
 
 module.exports = router;

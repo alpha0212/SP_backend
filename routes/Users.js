@@ -1,4 +1,7 @@
 const express = require("express");
+const app = express();
+const cors = require("cors");
+const path = require("path");
 const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
@@ -23,16 +26,15 @@ router.post("/login", async (req, res) => {
 
   const user = await Users.findOne({ where: { user_id: user_id } });
 
-  if (!user) res.json({ error: "User Doesn't Exist" });
+  if (!user) {
+    res.json({ error: "존재하지 않는 유저" });
+  }
 
   bcrypt.compare(user_pw, user.user_pw).then(async (match) => {
-    if (!match) res.json({ error: "Wrong Username And Password Combination" });
     if (!match) {
-      return res.status(400).json({
-        status: "error",
-        error: "req body cannot be empty",
-      });
+      res.json({ error: "비밀번호가 틀립니다." });
     }
+
     const accessToken = sign(
       { user_id: user.user_id, id: user.id },
       "importantsecret"
