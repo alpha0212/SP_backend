@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     user_name: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   });
   return TodayTime;
