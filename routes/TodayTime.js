@@ -17,7 +17,7 @@ router.get("/byId/:id", async (req, res) => {
 
 router.post("/", validateToken, async (req, res) => {
   const post = req.body;
-  post.user_name = req.user.user_name;
+  post.user_id = req.user.user_id;
   await TodayTime.create(post);
   res.json(post);
 });
