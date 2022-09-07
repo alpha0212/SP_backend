@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "admin",
-    "password": "awsWNS!gml6628",
-    "database": "sptdatabase",
-    "host": "sptdatabase.cra01zi9ewcg.ap-northeast-2.rds.amazonaws.com",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   },
   "test": {
