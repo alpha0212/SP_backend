@@ -20,6 +20,11 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.get("/", validateToken, async (req, res) => {
+  const listOfUsers = await Users.findAll();
+  res.json({ listOfUsers: listOfUsers });
+});
+
 router.post("/login", async (req, res) => {
   const { user_id, user_pw } = req.body;
 
