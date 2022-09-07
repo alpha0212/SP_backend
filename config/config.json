@@ -1,9 +1,16 @@
 {
   "development": {
+<<<<<<< HEAD
     "username": "root",
     "password": "wnsgml6628",
     "database": "skyplanner",
     "host": "localhost",
+=======
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+>>>>>>> 1ea804228baef5decec234568490ebc33d62eb12
     "dialect": "mysql"
   },
   "test": {
