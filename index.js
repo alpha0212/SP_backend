@@ -12,6 +12,8 @@ const timeRouter = require("./routes/TodayTime");
 app.use("/todaytimes", timeRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
+const teacherRouter = require("./routes/Teacher");
+app.use("/teacher", teacherRouter);
 
 app.get("/ping", (req, res) => {
   res.send("pong");
