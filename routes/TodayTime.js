@@ -20,7 +20,7 @@ router.get("/byId/:id", async (req, res) => {
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
   const listOfPosts = await TodayTime.findAll({
-    where: { id: id },
+    where: { q: id },
   });
   res.json(listOfPosts);
 });
@@ -28,6 +28,7 @@ router.get("/byuserId/:id", async (req, res) => {
 router.post("/", validateToken, async (req, res) => {
   const post = req.body;
   post.user_id = req.user.user_id;
+  post.q = req.user.id;
   await TodayTime.create(post);
   res.json(post);
 });
