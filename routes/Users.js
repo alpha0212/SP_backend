@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.get("/", validateToken, async (req, res) => {
+router.get("/", async (req, res) => {
   const listOfUsers = await Users.findAll();
   res.json({ listOfUsers: listOfUsers });
 });
@@ -55,7 +55,7 @@ router.get("/basicinfo/:id", async (req, res) => {
   const id = req.params.id;
 
   const basicInfo = await Users.findByPk(id, {
-    attributes: { exclude: ["password"] },
+    attributes: { exclude: ["user_pw"] },
   });
   res.json(basicInfo);
 });

@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "wnsgml6628",
+    "password": "",
     "database": "skyplanner",
     "host": "localhost",
     "dialect": "mysql"
