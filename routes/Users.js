@@ -26,9 +26,11 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { user_id, user_pw } = req.body;
+  const { user_id, user_name, user_pw } = req.body;
 
-  const user = await Users.findOne({ where: { user_id: user_id } });
+  const user = await Users.findOne({
+    where: { user_id: user_id },
+  });
 
   if (!user) {
     res.json({ error: "존재하지 않는 유저" });
@@ -40,10 +42,15 @@ router.post("/login", async (req, res) => {
     }
 
     const accessToken = sign(
-      { user_id: user.user_id, id: user.id },
+      { user_id: user.user_id, user_name: user.user_name, id: user.id },
       "importantsecret"
     );
-    res.json({ token: accessToken, user_id: user_id, id: user.id });
+    res.json({
+      token: accessToken,
+      user_id: user_id,
+      user_name: user_name,
+      id: user.id,
+    });
   });
 });
 
