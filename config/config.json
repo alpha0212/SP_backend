@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "",
+    "username": "root",
     "password": "",
-    "database": "",
-    "host": "",
+    "database": "skyplanner",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
