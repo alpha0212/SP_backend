@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "src/helper/AuthContext";
 import { MyTime } from "src/components";
-import * as S from "./styled";
+import * as S from "../SP_frontend/src/components/common/MyPlanSideBar/styled";
 
 export const MyPlanSideBar = () => {
   const [authState, setAuthState] = useState({
