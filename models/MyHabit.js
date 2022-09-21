@@ -1,30 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const TodayTime = sequelize.define("TodayTime", {
-    kor: {
+  const MyHabit = sequelize.define("MyHabit", {
+    morning: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    eng: {
+    night: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    math: {
+    sleep: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    sci: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    com: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    kh: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    study: {
+    break: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -33,5 +21,5 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  return TodayTime;
+  return MyHabit;
 };

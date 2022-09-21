@@ -1,36 +1,35 @@
 const express = require("express");
 const router = express.Router();
-const { TodayTime } = require("../models");
+const { MyHabit } = require("../models");
 
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.get("/", validateToken, async (req, res) => {
-  const listOfPosts = await TodayTime.findAll();
-  res.json({ listOfPosts: listOfPosts });
+  const listOfHabits = await MyHabit.findAll();
+  res.json({ listOfHabits: listOfHabits });
 });
 
 router.get("/byId/:id", async (req, res) => {
   const id = req.params.id;
-  const post = await TodayTime.findByPk(id);
-  res.json(post);
+  const habit = await MyHabit.findByPk(id);
+  res.json(habit);
 });
 
 //
 
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
-  const listOfPosts = await TodayTime.findAll({
+  const listOfHabits = await MyHabit.findAll({
     where: { UserId: id },
   });
-  res.json(listOfPosts);
+  res.json(listOfHabits);
 });
 
 router.post("/", validateToken, async (req, res) => {
-  const post = req.body;
-  post.user_id = req.user.user_name;
-  post.UserId = req.user.id;
-  await TodayTime.create(post);
-  res.json(post);
+  const habit = req.body;
+  habit.user_id = req.user.user_name;
+  habit.UserId = req.user.id;
+  await MyHabit.create(habit);
+  res.json(habit);
 });
-
 module.exports = router;

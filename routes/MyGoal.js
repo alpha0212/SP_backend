@@ -1,36 +1,36 @@
 const express = require("express");
 const router = express.Router();
-const { TodayTime } = require("../models");
+const { MyGoal } = require("../models");
 
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.get("/", validateToken, async (req, res) => {
-  const listOfPosts = await TodayTime.findAll();
-  res.json({ listOfPosts: listOfPosts });
+  const listOfGoals = await MyGoal.findAll();
+  res.json({ listOfGoals: listOfGoals });
 });
 
 router.get("/byId/:id", async (req, res) => {
   const id = req.params.id;
-  const post = await TodayTime.findByPk(id);
-  res.json(post);
+  const goal = await MyGoal.findByPk(id);
+  res.json(goal);
 });
 
 //
 
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
-  const listOfPosts = await TodayTime.findAll({
+  const listOfGoals = await MyGoal.findAll({
     where: { UserId: id },
   });
-  res.json(listOfPosts);
+  res.json(listOfGoals);
 });
 
 router.post("/", validateToken, async (req, res) => {
-  const post = req.body;
-  post.user_id = req.user.user_name;
-  post.UserId = req.user.id;
-  await TodayTime.create(post);
-  res.json(post);
+  const goal = req.body;
+  goal.user_id = req.user.user_id;
+  goal.UserId = req.user.id;
+  await MyGoal.create(goal);
+  res.json(goal);
 });
 
 module.exports = router;

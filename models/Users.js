@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     Users.hasMany(models.TodayTime, {
       onDelete: "cascade",
     });
+    Users.hasMany(models.MyGoal, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.MyHabit, {
+      onDelete: "cascade",
+    });
   };
-
   return Users;
 };

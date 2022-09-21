@@ -12,6 +12,10 @@ const db = require("./models");
 
 const timeRouter = require("./routes/TodayTime");
 app.use("/todaytimes", timeRouter);
+const habitRouter = require("./routes/MyHabit");
+app.use("/myhabit", habitRouter);
+const goalRouter = require("./routes/MyGoal");
+app.use("/mygoal", goalRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
 const teacherRouter = require("./routes/Teacher");
