@@ -17,6 +17,15 @@ router.get("/byId/:id", async (req, res) => {
 
 //
 
+router.get("/api/data/:id", async (req, res) => {
+  const id = req.params.id;
+  TodayTime.findAll({
+    where: { UserId: id },
+  }).then((result) => {
+    res.send(result);
+  });
+});
+
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
   const listOfPosts = await TodayTime.findAll({
