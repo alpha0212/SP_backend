@@ -10,13 +10,27 @@ const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
   const { user_name, user_id, user_pw } = req.body;
-  bcrypt.hash(user_pw, 10).then((hash) => {
-    Users.create({
-      user_name: user_name,
-      user_id: user_id,
-      user_pw: hash,
-    });
-    res.json("SUCCESS");
+  Users.findOne({ where: { user_id: user_id } }).then((data) => {
+    if (data) {
+      res.status(400).json({
+        result: false,
+        message: "이미 존재하는 아이디입니다.",
+      });
+    } else {
+      bcrypt.hash(user_pw, 10).then((hash) => {
+        Users.create({
+          user_name: user_name,
+          user_id: user_id,
+          user_pw: hash,
+        })
+          .then((result) => {
+            res.status(200).json(result);
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      });
+    }
   });
 });
 
