@@ -18,25 +18,28 @@ router.get("/byId/:id", async (req, res) => {
 //
 
 router.get("/api/data/:id", async (req, res) => {
-  const id = req.params.id;
+  const name = req.params.id;
   TodayTime.findAll({
-    where: { UserId: id },
+    where: { user_id: name },
   }).then((result) => {
     res.send(result);
   });
 });
 
 router.get("/byuserId/:id", async (req, res) => {
-  const id = req.params.id;
+  //user_id로 유저의 시간 데이터를 표시할 수 있다.
+  //그래프가 경로상에 떠있는 아이디로 axios get 요청을 하기 때문에
+  const name = req.params.id;
   const listOfPosts = await TodayTime.findAll({
-    where: { UserId: id },
+    where: { user_id: name },
   });
   res.json(listOfPosts);
 });
 
 router.post("/", validateToken, async (req, res) => {
   const post = req.body;
-  post.user_id = req.user.user_name;
+  post.user_name = req.user.user_name;
+  post.user_id = req.user.user_id;
   post.UserId = req.user.id;
   await TodayTime.create(post);
   res.json(post);
