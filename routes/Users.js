@@ -7,7 +7,7 @@ const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
-
+app.use(cors());
 router.post("/", async (req, res) => {
   const { user_name, user_id, user_pw } = req.body;
   Users.findOne({ where: { user_id: user_id } }).then((data) => {
