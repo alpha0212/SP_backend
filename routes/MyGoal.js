@@ -20,13 +20,14 @@ router.get("/byId/:id", async (req, res) => {
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
   const listOfGoals = await MyGoal.findAll({
-    where: { UserId: id },
+    where: { user_id: id },
   });
   res.json(listOfGoals);
 });
 
 router.post("/", validateToken, async (req, res) => {
   const goal = req.body;
+  goal.user_name = req.user.user_name;
   goal.user_id = req.user.user_id;
   goal.UserId = req.user.id;
   await MyGoal.create(goal);
