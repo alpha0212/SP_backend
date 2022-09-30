@@ -20,14 +20,15 @@ router.get("/byId/:id", async (req, res) => {
 router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
   const listOfHabits = await MyHabit.findAll({
-    where: { UserId: id },
+    where: { user_id: id },
   });
   res.json(listOfHabits);
 });
 
 router.post("/", validateToken, async (req, res) => {
   const habit = req.body;
-  habit.user_id = req.user.user_name;
+  habit.user_name = req.user.user_name;
+  habit.user_id = req.user.user_id;
   habit.UserId = req.user.id;
   await MyHabit.create(habit);
   res.json(habit);
