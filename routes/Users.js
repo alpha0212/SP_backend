@@ -9,7 +9,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 app.use(cors());
 router.post("/", async (req, res) => {
-  const { user_name, user_id, user_pw } = req.body;
+  const { user_name, user_id, user_pw, user_agree } = req.body;
   Users.findOne({ where: { user_id: user_id } }).then((data) => {
     if (data) {
       res.status(400).json({
@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
           user_name: user_name,
           user_id: user_id,
           user_pw: hash,
+          user_agree: user_agree,
         })
           .then((result) => {
             res.status(200).json(result);
@@ -35,12 +36,12 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const listOfUsers = await Users.findAll();
-  res.json({ listOfUsers: listOfUsers });
+  const user = await Users.findAll();
+  res.json(user); //배열 괄호 안줘서 length를 사용가능
 });
 
 router.post("/login", async (req, res) => {
-  const { user_id, user_name, user_pw } = req.body;
+  const { user_id, user_name, user_pw, user_agree } = req.body;
 
   const user = await Users.findOne({
     where: { user_id: user_id },
@@ -56,13 +57,19 @@ router.post("/login", async (req, res) => {
     }
 
     const accessToken = sign(
-      { user_id: user.user_id, user_name: user.user_name, id: user.id },
+      {
+        user_id: user.user_id,
+        user_name: user.user_name,
+        user_agree: user.user_agree,
+        id: user.id,
+      },
       "importantsecret"
     );
     res.json({
       token: accessToken,
       user_id: user_id,
       user_name: user_name,
+      user_agree: user_agree,
       id: user.id,
     });
   });
