@@ -40,6 +40,11 @@ router.get("/", async (req, res) => {
   res.json(user); //배열 괄호 안줘서 length를 사용가능
 });
 
+router.get("/sts", async (req, res) => {
+  const listOfUsers = await Users.findAll();
+  res.json({ listOfUsers: listOfUsers });
+});
+
 router.post("/login", async (req, res) => {
   const { user_id, user_name, user_pw, user_agree } = req.body;
 
