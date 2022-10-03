@@ -4,7 +4,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    morningAm: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     night: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    nightAm: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
