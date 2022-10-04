@@ -27,6 +27,27 @@ module.exports = (sequelize, DataTypes) => {
     Users.hasMany(models.MyHabit, {
       onDelete: "cascade",
     });
+    Users.hasMany(models.Sun, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.Tues, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.Wednes, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.Thurs, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.Fri, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.Satur, {
+      onDelete: "cascade",
+    });
+    Users.hasMany(models.Sun, {
+      onDelete: "cascade",
+    });
   };
   return Users;
 };
