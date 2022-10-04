@@ -10,6 +10,23 @@ app.use(cors());
 
 const db = require("./models");
 
+//weekends
+const Mon = require("./routes/Mon");
+app.use("/mon", Mon);
+const Tues = require("./routes/Tues");
+app.use("/tues", Tues);
+const Wednes = require("./routes/Wednes");
+app.use("/wednes", Wednes);
+const Thurs = require("./routes/Thurs");
+app.use("/thurs", Thurs);
+const Fri = require("./routes/Fri");
+app.use("/fri", Fri);
+const Satur = require("./routes/Satur");
+app.use("/satur", Satur);
+const Sun = require("./routes/Sun");
+app.use("/sun", Sun);
+//
+
 const timeRouter = require("./routes/TodayTime");
 app.use("/todaytimes", timeRouter);
 const habitRouter = require("./routes/MyHabit");
